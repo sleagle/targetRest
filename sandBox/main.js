@@ -1,16 +1,17 @@
 /**
- * SandBox API for the sample TargetRest Service
+ * Using SandBox API to mock the TargetRest Service
  * 
  */
 
+ /*
+  * this method mocks a addCard request
+  */
 Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
-    // Check the request, make sure it is a compatible type
+    
+	//checking the request to see if it's in the proper format
     if (!req.is('application/json')) {
         return res.send(400, 'Invalid content type, expected application/json');
     }
-    
-    // Set the type of response, sets the Content-Type header.
-    res.type('application/json');
     
     //getting the payment token from the request parameter
     var paymentToken = req.params.paymentToken;
@@ -24,6 +25,7 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     var teamMemberNumber;
     var cartwheelNumber;
     
+	// printing to the console for checking
     console.log("paymentToken: " + paymentToken);
     console.log("accountType: " + accountType);
     console.log("networkType: " + networkType);
@@ -48,10 +50,13 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     
     /* ************** generating the respond ************** */
 
-    // Set the status code of a successful response.
+	//setting the type of response, sets the Content-Type header.
+    res.type('application/json');
+	
+    //setting the status code for a successful response.
     res.status(200);
     
-    // Response body for a cartwheel request
+    //response body for a cartwheel request
     if(cartwheelNumber !== undefined){
         res.json({
             "href": "http://targettest.getsandbox.com" + req.url,
@@ -67,7 +72,7 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
         });
     }
     
-    // Response body for a teamMember request
+    //response body for a teamMember request
     else{
         res.json({
             "href": "http://targettest.getsandbox.com" + req.url,
@@ -84,6 +89,9 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     }
 });
 
+ /*
+  * this method mocks a removeCard request
+  */
 Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
 	
     //checking the request to see if it's in the proper format
