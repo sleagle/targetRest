@@ -35,7 +35,7 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     //card number for response
     var cardNumber;
     
-	//checking for the type of the add card request
+	//checking for the type of the add card request and setting the card number for the response
 	if(accountType.trim().match(/LoyaltyCartwheel/) == "LoyaltyCartwheel"){
 		cartwheelNumber = req.body.cartwheelNumber;
         cardNumber = cartwheelNumber.substr(cartwheelNumber.length - 4);
