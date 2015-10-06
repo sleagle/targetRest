@@ -42,10 +42,14 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
         console.log("cartwheel #: " + cartwheelNumber + " card #: " + cardNumber);
     }
     
-    else{
+    else if(accountType.trim().match(/LoyaltyTeamMember/) == "LoyaltyTeamMember"){
         teamMemberNumber = req.body.teamMemberNumber;
         cardNumber = teamMemberNumber.substr(teamMemberNumber.length - 4);
         console.log("teamMember #: " + teamMemberNumber + " card #: " + cardNumber);
+    }
+    
+    else{
+        return res.send(403, 'Invalid card type');
     }
     
     /* ************** generating the respond ************** */
