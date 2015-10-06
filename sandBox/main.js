@@ -107,7 +107,6 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
     
     //send the response body.
     res.json({
-        "status": "ok",
 		"actionStatus": "1",
 		"actionMessage": "Success"
     });
