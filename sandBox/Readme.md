@@ -14,5 +14,3 @@ To use the Sandbox mock service using the sandbox url:-
     
 
 To use the Sandbox mock service locally:-
-    
-    1)
