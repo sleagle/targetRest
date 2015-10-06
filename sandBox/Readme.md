@@ -1,7 +1,7 @@
 Documentation
 ====================
 
-To use the Sandbox mock service:-
+To use the Sandbox mock service using the sandbox url:-
 
     1) open up a Rest Client like Postman
     2) URL should be: http://targetrest.getsandbox.com
@@ -11,3 +11,8 @@ To use the Sandbox mock service:-
     6) for the addCard request the body type should be: application/json
     
     Final url should be like 'http://targetrest.getsandbox.com/api/cards/v1/123456'
+    
+
+To use the Sandbox mock service locally:-
+    
+    1)
