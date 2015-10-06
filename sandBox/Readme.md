@@ -7,3 +7,4 @@ To use the Sandbox mock service:-
     3) path should be: /api/cards/v1/{token}
     4) to mock addCard, request type should be PUT
     5) to mock removeCard, request type should be DELETE
+    6) for thr addCard request the body type should be: application/json
