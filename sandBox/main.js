@@ -40,6 +40,11 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
 		cartwheelNumber = req.body.cartwheelNumber;
         cardNumber = cartwheelNumber.substr(cartwheelNumber.length - 4);
         console.log("cartwheel #: " + cartwheelNumber + " card #: " + cardNumber);
+        
+        //this card number for Test Case: testAddCartwheelDuplicateCard
+		if(cartwheelNumber.trim().match(/20277022/) == "20277022"){
+			return res.send(409, 'Failure - Duplicate card in the same wallet');
+		}
     }
     
     else if(accountType.trim().match(/LoyaltyTeamMember/) == "LoyaltyTeamMember"){
