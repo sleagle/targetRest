@@ -3,36 +3,6 @@
  * 
  */
 
-function successTeamMemberResponse(res, url, accountType, networkType, walletId, customerId, cardNumber, paymentToken){
-	res.json({
-		"href": "http://targettest.getsandbox.com" + url,
-		"accountTypeURI": accountType,
-		"networkTypeURI": networkType,
-		"walletId": walletId,
-		"customerId": customerId,
-		"teamMemberNumber": cardNumber,
-		"paymentToken": paymentToken,
-		"cardType": "70", 
-		"actionStatus": "1", 
-		"actionMessage": "Success"
-	});
- }
- 
- function successCartwheelResponse(res, url, accountType, networkType, walletId, customerId, cardNumber, paymentToken){
-	res.json({
-		"href": "http://targettest.getsandbox.com" + req.url,
-		"accountTypeURI": accountType,
-		"networkTypeURI": networkType,
-		"walletId": walletId,
-		"customerId": customerId,
-		"cartwheelNumber": cardNumber,
-		"paymentToken": paymentToken,
-		"cardType": "60", 
-		"actionStatus": "1", 
-		"actionMessage": "Success"
-	});
- }
- 
  /*
   * this method mocks a addCard request
   */
@@ -79,7 +49,7 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     }
     
     else{
-        return res.send(403, 'Invalid card type');
+        return res.send(403, 'Invalid card type, expected LoyaltyCartwheel or LoyaltyTeamMember');
     }
     
     /* ************** generating the respond ************** */
@@ -92,12 +62,34 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     
     //response body for a cartwheel request
     if(cartwheelNumber !== undefined){
-       successCartwheelResponse(res, req.url, accountType, networkType, walletId, customerId, cardNumber, paymentToken);
+        res.json({
+            "href": "http://targettest.getsandbox.com" + req.url,
+            "accountTypeURI": accountType,
+            "networkTypeURI": networkType,
+            "walletId": walletId,
+            "customerId": customerId,
+            "cartwheelNumber": cardNumber,
+            "paymentToken": paymentToken,
+            "cardType": "60", 
+            "actionStatus": "1", 
+            "actionMessage": "Success"
+        });
     }
     
     //response body for a teamMember request
     else{
-        successTeamMemberResponse(res, req.url, accountType, networkType, walletId, customerId, cardNumber, paymentToken);
+        res.json({
+            "href": "http://targettest.getsandbox.com" + req.url,
+            "accountTypeURI": accountType,
+            "networkTypeURI": networkType,
+            "walletId": walletId,
+            "customerId": customerId,
+            "teamMemberNumber": cardNumber,
+            "paymentToken": paymentToken,
+            "cardType": "70", 
+            "actionStatus": "1", 
+            "actionMessage": "Success"
+        });
     }
 });
 
