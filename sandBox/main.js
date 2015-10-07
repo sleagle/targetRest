@@ -122,6 +122,7 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
 		}
 		
 		else if(paymentToken.trim().match(/1iCYYENDltJk/) == "1iCYYENDltJk"){
+		    console.log("error");
 			res.status(200);
 			
 			res.json({
