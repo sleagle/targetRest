@@ -110,14 +110,7 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
     
 	if(paymentToken.indexOf("null") === 0 || paymentToken === ""){
 			
-		//return res.send(406, "Not Acceptable");
-		
-		res.status(406);
-    		
-			res.json({
-				"actionStatus": "406",
-				"actionMessage": "Not Acceptable"
-			});
+		return res.send(406, "Not Acceptable");
 	}
 	
 	else{
