@@ -110,20 +110,30 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
 			
 		if(paymentToken.indexOf("4") != -1){
 			res.send(200, "OK");
-			
+
 			res.json({
-				"actionStatus": "1",
-				"actionMessage": "Success"
+				"actionStatus": "8",
+				"actionMessage": "Invalid Card"
 			});
+			
 		}
 		
+		else if(paymentToken.trim().match(/1iCYYENDltJk/) == "1iCYYENDltJk"){
+			res.send(200, "OK");
+			
+			res.json({
+				"actionStatus": "2",
+				"actionMessage": "Not Success"
+			});
+		}
+			
 		//setting the status code for a successful response.
 		res.status(200);
 		
 		//send the response body.
 		res.json({
-			"actionStatus": "8",
-			"actionMessage": "Invalid Card"
+			"actionStatus": "1",
+			"actionMessage": "Success"
 		});
 		
 		
