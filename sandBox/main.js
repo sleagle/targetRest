@@ -12,6 +12,9 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     if (!req.is('application/json')) {
         return res.send(400, 'Invalid content type, expected application/json');
     }
+	
+	//setting the type of response, sets the Content-Type header.
+    res.type('application/json');
     
     //getting the payment token from the request parameter
     var paymentToken = req.params.paymentToken;
@@ -45,33 +48,70 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
 	if(accountType.trim().match(/LoyaltyCartwheel/) == "LoyaltyCartwheel"){
 		cartwheelNumber = req.body.cartwheelNumber;
         
+		//these card numbers are for Test Case: testAddCartwheelRequestSuccess
+		if(cartwheelNumber.trim().match(/202892340/) == "202892340" || 
+			cartwheelNumber.trim().match(/202202990/) == "202202990"){
+				
+			cardNumber = cartwheelNumber.substr(cartwheelNumber.length - 4);
+			console.log("cartwheel #: " + cartwheelNumber + " card #: " + cardNumber);
+			
+				/* ************** generating the success respond ************** */
+				//setting the status code for a successful response.
+				res.status(201);
+				
+				res.json({
+					"href": "http://targettest.getsandbox.com" + req.url,
+					"accountTypeURI": accountType,
+					"networkTypeURI": networkType,
+					"walletId": walletId,
+					"customerId": customerId,
+					"cartwheelNumber": cardNumber,
+					"paymentToken": paymentToken,
+					"cardType": "60", 
+					"actionStatus": "1", 
+					"actionMessage": "Success"
+				});
+			
+		}
+		
 		//checking for invalid card numbers
-		if(cartwheelNumber.trim().match(/20289002/) == "20289002"){
+		
+		else if(cartwheelNumber.trim().match(/20289002/) == "20289002"){
+			return res.send(2, 'Failure - Duplicate card in the same wallet');
+		}
+		
+		//this card number for Test Case: testAddCartwheelDuplicateCard
+		else if(cartwheelNumber.trim().match(/20277022/) == "20277022"){
 			return res.send(409, 'Failure - Duplicate card in the same wallet');
 		}
 		
 		else if(cartwheelNumber.trim().match(/20289003/) == "20289003"){
-			return res.send(403, 'Failure - Max limit the same card type reached');
+			return res.send(3, 'Failure - Max limit the same card type reached');
 		}
 		
 		else if(cartwheelNumber.trim().match(/20289004/) == "20289004"){
-			return res.send(403, 'Failure - Max limit for same card in many wallets');
+			return res.send(4, 'Failure - Max limit for same card in many wallets');
 		}
 		
 		else if(cartwheelNumber.trim().match(/20289005/) == "20289005"){
-			return res.send(403, 'Failure - Addition failed try again');
+			return res.send(5, 'Failure - Addition failed try again');
 		}
 		
 		else if(cartwheelNumber.trim().match(/20289006/) == "20289006"){
+			return res.send(6, 'Failure - card status not good');
+		}
+		//this card number for Test Case: testAddCartwheelInvaliCardStatus
+		else if(cartwheelNumber.trim().match(/20277023/) == "20277023"){
 			return res.send(204, 'Failure - card status not good');
 		}
 		
-		else if(cartwheelNumber.trim().match(/20289007/) == "20289007"){
-			return res.send(403, 'Failure - ');
+		else if(cartwheelNumber.trim().match(/2052052051/) == "2052052051"){
+			return res.send(400, 'Bad card status');
 		}
 		
-		cardNumber = cartwheelNumber.substr(cartwheelNumber.length - 4);
-        console.log("cartwheel #: " + cartwheelNumber + " card #: " + cardNumber);
+		else if(cartwheelNumber.trim().match(/20289007/) == "20289007"){
+			return res.send(7, 'Failure - Invalid account number');
+		}
     }
     
     else if(accountType.trim().match(/LoyaltyTeamMember/) == "LoyaltyTeamMember"){
