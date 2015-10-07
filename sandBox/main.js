@@ -44,7 +44,33 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
 	//checking for the type of the add card request and setting the card number for the response
 	if(accountType.trim().match(/LoyaltyCartwheel/) == "LoyaltyCartwheel"){
 		cartwheelNumber = req.body.cartwheelNumber;
-        cardNumber = cartwheelNumber.substr(cartwheelNumber.length - 4);
+        
+		//checking for invalid card numbers
+		if(cartwheelNumber.trim().match(/20289002/) == "20289002"){
+			return res.send(409, 'Failure - Duplicate card in the same wallet');
+		}
+		
+		else if(cartwheelNumber.trim().match(/20289003/) == "20289003"){
+			return res.send(403, 'Failure - Max limit the same card type reached');
+		}
+		
+		else if(cartwheelNumber.trim().match(/20289004/) == "20289004"){
+			return res.send(403, 'Failure - Max limit for same card in many wallets');
+		}
+		
+		else if(cartwheelNumber.trim().match(/20289005/) == "20289005"){
+			return res.send(403, 'Failure - Addition failed try again');
+		}
+		
+		else if(cartwheelNumber.trim().match(/20289006/) == "20289006"){
+			return res.send(204, 'Failure - card status not good');
+		}
+		
+		else if(cartwheelNumber.trim().match(/20289007/) == "20289007"){
+			return res.send(403, 'Failure - ');
+		}
+		
+		cardNumber = cartwheelNumber.substr(cartwheelNumber.length - 4);
         console.log("cartwheel #: " + cartwheelNumber + " card #: " + cardNumber);
     }
     
