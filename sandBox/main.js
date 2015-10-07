@@ -111,7 +111,7 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
 	if(paymentToken !== null || paymentToken !== ""){
 	    console.log("in not null");
 			
-		if(paymentToken.indexOf("4") != -1){
+		if(paymentToken.indexOf("4") !== -1){
 			res.status(200);
 
 			res.json({
