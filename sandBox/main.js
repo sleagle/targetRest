@@ -115,7 +115,10 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
 		if(paymentToken.trim().indexOf('4') > -1){
 		    console.log("in index 4");
 
-			res.set({
+            //setting the status code for a successful response.
+    		res.status(200);
+    		
+			res.json({
 				"actionStatus": "8",
 				"actionMessage": "Invalid Card"
 			});
@@ -123,22 +126,25 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
 		
 		else if(paymentToken.trim().match(/1iCYYENDltJk/) == "1iCYYENDltJk"){
 		    console.log("error");
-			res.status(200);
 			
+			//setting the status code for a successful response.
+    		res.status(200);
 			res.json({
 				"actionStatus": "2",
 				"actionMessage": "Not Success"
 			});
 		}
 			
-		//setting the status code for a successful response.
-		res.status(200);
-		
-		//send the response body.
-		res.json({
-			"actionStatus": "1",
-			"actionMessage": "Success"
-		});
+		else{
+		    //setting the status code for a successful response.
+    		res.status(200);
+    		
+    		//send the response body.
+    		res.json({
+    			"actionStatus": "1",
+    			"actionMessage": "Success"
+    		});
+		}
 	}
 	
 	else{
