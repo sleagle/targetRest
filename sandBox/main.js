@@ -115,8 +115,13 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
         console.log("not null");
     }
     
-	if(paymentToken.indexOf("null") < 0 || paymentToken !== ""){
+	if(paymentToken.indexOf("null") === 0 || paymentToken === ""){
 			
+		return res.send(406, "Not Acceptable");
+	}
+	
+	else{
+		
 		if(paymentToken.trim().indexOf('4') > -1){
 
             //setting the status code for a successful response.
@@ -148,10 +153,6 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
     			"actionMessage": "Success"
     		});
 		}
-	}
-	
-	else{
-		return res.send(406, "Not Acceptable");
 	}
     
 });
