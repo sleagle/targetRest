@@ -32,6 +32,12 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     console.log("walletId: " + walletId);
     console.log("customerId: " + customerId);
     
+	//checking for the networkType
+	if(networkType.trim.match(/Target/) != "Target"){
+		console.log("not target");
+		return res.send(403, 'Invalid network type');
+	}
+	
     //card number for response
     var cardNumber;
     
@@ -49,7 +55,7 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     }
     
     else{
-        return res.send(403, 'Invalid card type, expected LoyaltyCartwheel or LoyaltyTeamMember');
+        return res.send(403, 'Invalid account type, expected LoyaltyCartwheel or LoyaltyTeamMember');
     }
     
     /* ************** generating the respond ************** */
