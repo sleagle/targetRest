@@ -3,6 +3,36 @@
  * 
  */
 
+function successTeamMemberResponse(res, url, accountType, networkType, walletId, customerId, cardNumber, paymentToken){
+	res.json({
+		"href": "http://targettest.getsandbox.com" + url,
+		"accountTypeURI": accountType,
+		"networkTypeURI": networkType,
+		"walletId": walletId,
+		"customerId": customerId,
+		"teamMemberNumber": cardNumber,
+		"paymentToken": paymentToken,
+		"cardType": "70", 
+		"actionStatus": "1", 
+		"actionMessage": "Success"
+	});
+ }
+ 
+ function successCartwheelResponse(res, url, accountType, networkType, walletId, customerId, cardNumber, paymentToken){
+	res.json({
+		"href": "http://targettest.getsandbox.com" + req.url,
+		"accountTypeURI": accountType,
+		"networkTypeURI": networkType,
+		"walletId": walletId,
+		"customerId": customerId,
+		"cartwheelNumber": cardNumber,
+		"paymentToken": paymentToken,
+		"cardType": "60", 
+		"actionStatus": "1", 
+		"actionMessage": "Success"
+	});
+ }
+ 
  /*
   * this method mocks a addCard request
   */
@@ -32,45 +62,13 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     console.log("walletId: " + walletId);
     console.log("customerId: " + customerId);
     
-	//checking for the networkType
-	if(networkType.trim().match(/Target/) != "Target"){
-		console.log("not target");
-		return res.send(403, 'Invalid network type');
-	}
-	
     //card number for response
     var cardNumber;
     
 	//checking for the type of the add card request and setting the card number for the response
 	if(accountType.trim().match(/LoyaltyCartwheel/) == "LoyaltyCartwheel"){
 		cartwheelNumber = req.body.cartwheelNumber;
-        
-		//checking for invalid card numbers
-		if(cartwheelNumber.trim().match(/20289002/) == "20289002"){
-			return res.send(409, 'Failure - Duplicate card in the same wallet');
-		}
-		
-		else if(cartwheelNumber.trim().match(/20289003/) == "20289003"){
-			return res.send(403, 'Failure - Max limit the same card type reached');
-		}
-		
-		else if(cartwheelNumber.trim().match(/20289004/) == "20289004"){
-			return res.send(403, 'Failure - Max limit for same card in many wallets');
-		}
-		
-		else if(cartwheelNumber.trim().match(/20289005/) == "20289005"){
-			return res.send(403, 'Failure - Addition failed try again');
-		}
-		
-		else if(cartwheelNumber.trim().match(/20289006/) == "20289006"){
-			return res.send(204, 'Failure - card status not good');
-		}
-		
-		else if(cartwheelNumber.trim().match(/20289007/) == "20289007"){
-			return res.send(403, 'Failure - ');
-		}
-		
-		cardNumber = cartwheelNumber.substr(cartwheelNumber.length - 4);
+        cardNumber = cartwheelNumber.substr(cartwheelNumber.length - 4);
         console.log("cartwheel #: " + cartwheelNumber + " card #: " + cardNumber);
     }
     
@@ -81,7 +79,7 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     }
     
     else{
-        return res.send(403, 'Invalid account type, expected LoyaltyCartwheel or LoyaltyTeamMember');
+        return res.send(403, 'Invalid card type');
     }
     
     /* ************** generating the respond ************** */
@@ -94,34 +92,12 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     
     //response body for a cartwheel request
     if(cartwheelNumber !== undefined){
-        res.json({
-            "href": "http://targettest.getsandbox.com" + req.url,
-            "accountTypeURI": accountType,
-            "networkTypeURI": networkType,
-            "walletId": walletId,
-            "customerId": customerId,
-            "cartwheelNumber": cardNumber,
-            "paymentToken": paymentToken,
-            "cardType": "60", 
-            "actionStatus": "1", 
-            "actionMessage": "Success"
-        });
+       successCartwheelResponse(res, req.url, accountType, networkType, walletId, customerId, cardNumber, paymentToken)
     }
     
     //response body for a teamMember request
     else{
-        res.json({
-            "href": "http://targettest.getsandbox.com" + req.url,
-            "accountTypeURI": accountType,
-            "networkTypeURI": networkType,
-            "walletId": walletId,
-            "customerId": customerId,
-            "teamMemberNumber": cardNumber,
-            "paymentToken": paymentToken,
-            "cardType": "70", 
-            "actionStatus": "1", 
-            "actionMessage": "Success"
-        });
+        successTeamMemberResponse(res, req.url, accountType, networkType, walletId, customerId, cardNumber, paymentToken);
     }
 });
 
