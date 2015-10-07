@@ -107,19 +107,19 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
     res.type('application/json');
     
 	if(paymentToken !== null || paymentToken !== ""){
+	    console.log("in not null");
 			
 		if(paymentToken.indexOf("4") != -1){
-			res.send(200, "OK");
+			res.status(200);
 
 			res.json({
 				"actionStatus": "8",
 				"actionMessage": "Invalid Card"
 			});
-			
 		}
 		
 		else if(paymentToken.trim().match(/1iCYYENDltJk/) == "1iCYYENDltJk"){
-			res.send(200, "OK");
+			res.status(200);
 			
 			res.json({
 				"actionStatus": "2",
@@ -135,8 +135,6 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
 			"actionStatus": "1",
 			"actionMessage": "Success"
 		});
-		
-		
 	}
 	
 	else{
