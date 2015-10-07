@@ -49,7 +49,7 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     }
     
     else{
-        return res.send(403, 'Invalid card type');
+        return res.send(403, 'Invalid card type, expected LoyaltyCartwheel or LoyaltyTeamMember');
     }
     
     /* ************** generating the respond ************** */
