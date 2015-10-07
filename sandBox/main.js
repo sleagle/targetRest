@@ -33,7 +33,7 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     console.log("customerId: " + customerId);
     
 	//checking for the networkType
-	if(networkType.trim.match(/Target/) != "Target"){
+	if(networkType.trim().match(/Target/) != "Target"){
 		console.log("not target");
 		return res.send(403, 'Invalid network type');
 	}
