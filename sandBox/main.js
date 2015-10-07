@@ -113,7 +113,6 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
 	    console.log(paymentToken.trim().indexOf('4'));
 			
 		if(paymentToken.trim().indexOf('4') > -1){
-		    console.log("in index 4");
 
             //setting the status code for a successful response.
     		res.status(200);
@@ -125,7 +124,6 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
 		}
 		
 		else if(paymentToken.trim().match(/1iCYYENDltJk/) == "1iCYYENDltJk"){
-		    console.log("error");
 			
 			//setting the status code for a successful response.
     		res.status(200);
