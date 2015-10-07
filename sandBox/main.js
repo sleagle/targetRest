@@ -114,12 +114,12 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
 			
 		if(paymentToken.trim().indexOf('4') > -1){
 		    console.log("in index 4");
-			res.status(200);
+			return res.send(200, 
 
 			res.json({
 				"actionStatus": "8",
 				"actionMessage": "Invalid Card"
-			});
+			}));
 		}
 		
 		else if(paymentToken.trim().match(/1iCYYENDltJk/) == "1iCYYENDltJk"){
