@@ -106,31 +106,12 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
     //setting the type of response, sets the Content-Type header.
     res.type('application/json');
     
-	if(paymentToken !== null || paymentToken !== ""){
-			
-		if(paymentToken.indexOf("4") != -1){
-			res.send(200, "OK");
-			
-			res.json({
-				"actionStatus": "1",
-				"actionMessage": "Success"
-			});
-		}
-		
-		//setting the status code for a successful response.
-		res.status(200);
-		
-		//send the response body.
-		res.json({
-			"actionStatus": "8",
-			"actionMessage": "Invalid Card"
-		});
-		
-		
-	}
-	
-	else{
-		return res.send(406, "Not Acceptable");
-	}
+    //setting the status code for a successful response.
+    res.status(200);
     
+    //send the response body.
+    res.json({
+		"actionStatus": "1",
+		"actionMessage": "Success"
+    });
 });
