@@ -92,7 +92,7 @@ Sandbox.define('/api/cards/v1/{paymentToken}','PUT', function(req, res) {
     
     //response body for a cartwheel request
     if(cartwheelNumber !== undefined){
-       successCartwheelResponse(res, req.url, accountType, networkType, walletId, customerId, cardNumber, paymentToken)
+       successCartwheelResponse(res, req.url, accountType, networkType, walletId, customerId, cardNumber, paymentToken);
     }
     
     //response body for a teamMember request
