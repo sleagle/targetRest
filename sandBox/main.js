@@ -105,10 +105,13 @@ Sandbox.define('/api/cards/v1/{paymentToken}','DELETE', function(req, res) {
     
     //setting the type of response, sets the Content-Type header.
     res.type('application/json');
-
+    
+    var paymentToken = req.params.paymentToken;
+    
 	if(paymentToken.indexOf("null") === 0 || paymentToken === ""){
 			
 		//return res.send(406, "Not Acceptable");
+		
 		res.status(406);
     		
 			res.json({
